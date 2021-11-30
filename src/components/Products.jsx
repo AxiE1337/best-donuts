@@ -30,16 +30,7 @@ const Products = () => {
       <div className={styles.mainContainer} id='mainContainer'>
         {donuts
           .filter((product) => {
-            if (searchBar === '') {
-              return product
-            } else if (searchBar.includes('1')) {
-              console.log('number')
-              return product
-            } else if (
-              product.info.toLowerCase().includes(searchBar.toLowerCase())
-            ) {
-              return product
-            }
+            return product.info.toLowerCase().includes(searchBar.toLowerCase())
           })
           .map((donut) => {
             return (

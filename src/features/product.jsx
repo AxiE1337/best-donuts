@@ -18,6 +18,7 @@ const productSlice = createSlice({
         if (value.id === payload.id) {
           value.amount += 1
         }
+        return value
       })
       state.total += payload.price
     },
