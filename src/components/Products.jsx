@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, increaseAmount } from '../features/product'
+import { Typography, TextField } from '@mui/material'
 import styles from '../styles/products.module.css'
 
 const Products = () => {
@@ -18,9 +19,12 @@ const Products = () => {
           setSearchBar('')
         }}
       >
-        <input
+        <TextField
+          fullWidth
+          color='success'
+          label='Search'
+          variant='standard'
           type='text'
-          placeholder=' Search'
           value={searchBar}
           onChange={(e) => {
             setSearchBar(e.target.value)
@@ -41,8 +45,8 @@ const Products = () => {
                   width='200'
                   alt={donut.info}
                 />
-                <p>{donut.info}</p>
-                <h2>{donut.price + '$'}</h2>
+                <Typography variant='h6'>{donut.info}</Typography>
+                <Typography variant='h4'>{donut.price + '$'}</Typography>
                 <button
                   onClick={() => {
                     const product = products.some((p) => p.id === donut.id)

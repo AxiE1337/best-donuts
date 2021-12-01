@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteProduct, deleteAll } from '../features/product'
+import {
+  deleteProduct,
+  deleteAll,
+  increaseAmount,
+  decreaseAmount,
+} from '../features/product'
+import { Button, Badge } from '@mui/material'
+import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 import styles from '../styles/NavBar.module.css'
 
 const NavBar = () => {
@@ -15,23 +25,62 @@ const NavBar = () => {
     <>
       <div className={styles.nav}>
         <h1>Best Donuts</h1>
-        <button onClick={() => modaHandle()}>Cart</button>
+        <Button variant='contained' onClick={() => modaHandle()}>
+          <Badge badgeContent={product.length - 1}>
+            <ShoppingCartTwoToneIcon />
+          </Badge>
+        </Button>
       </div>
       {cartModal && (
         <div className={styles.cart}>
           {product.length > 1 ? <p>List of items</p> : <p>Cart is empty</p>}
-
           {product.map((productCart) => {
             return (
               <div key={productCart.id}>
                 {productCart.id !== '' && (
-                  <p>
-                    {productCart.info} : {productCart.price + '$'}
-                    {' , amount: ' + productCart.amount}
-                  </p>
+                  <>
+                    <p>
+                      {productCart.info} : {productCart.price + '$'}
+                      <br />
+                      <strong>quantity: {productCart.amount}</strong>
+                    </p>
+                    <Button
+                      onClick={() => {
+                        dispatch(
+                          increaseAmount({
+                            id: productCart.id,
+                            price: productCart.price,
+                          })
+                        )
+                      }}
+                      size='small'
+                      variant='outlined'
+                      color='success'
+                    >
+                      <AddIcon fontSize='small' />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        dispatch(
+                          decreaseAmount({
+                            id: productCart.id,
+                            price: productCart.price,
+                          })
+                        )
+                      }}
+                      size='small'
+                      variant='outlined'
+                      color='error'
+                    >
+                      <RemoveIcon fontSize='small' />
+                    </Button>
+                  </>
                 )}
                 {productCart.id !== '' && (
-                  <button
+                  <Button
+                    size='small'
+                    variant='outlined'
+                    color='error'
                     onClick={() => {
                       dispatch(
                         deleteProduct({
@@ -42,22 +91,23 @@ const NavBar = () => {
                       )
                     }}
                   >
-                    del
-                  </button>
+                    <DeleteOutlineIcon fontSize='small' />
+                  </Button>
                 )}
               </div>
             )
           })}
           {totalPrice > 0 && <h1>Total: {totalPrice.toFixed(2)}$</h1>}
           {totalPrice > 0 && (
-            <button
+            <Button
+              variant='medium'
               className={styles.orderBtn}
               onClick={() => {
                 dispatch(deleteAll())
               }}
             >
               Order
-            </button>
+            </Button>
           )}
         </div>
       )}

@@ -22,6 +22,19 @@ const productSlice = createSlice({
       })
       state.total += payload.price
     },
+    decreaseAmount: (state, { payload }) => {
+      state.value.map((value) => {
+        if (value.id === payload.id) {
+          if (value.amount < 2) {
+            return value
+          } else {
+            value.amount -= 1
+            state.total -= payload.price
+          }
+        }
+        return value
+      })
+    },
     deleteProduct: (state, { payload }) => {
       state.value = state.value.filter((value) => value.id !== payload.id)
       state.total -= payload.price * payload.amount
@@ -33,6 +46,11 @@ const productSlice = createSlice({
   },
 })
 
-export const { addProduct, deleteProduct, deleteAll, increaseAmount } =
-  productSlice.actions
+export const {
+  addProduct,
+  deleteProduct,
+  deleteAll,
+  increaseAmount,
+  decreaseAmount,
+} = productSlice.actions
 export default productSlice.reducer
