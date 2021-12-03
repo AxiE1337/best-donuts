@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   deleteProduct,
-  deleteAll,
   increaseAmount,
   decreaseAmount,
 } from '../features/product'
+// MUI
 import { Button, Badge } from '@mui/material'
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
@@ -21,10 +22,11 @@ const NavBar = () => {
   const modaHandle = () => {
     setCartModal(!cartModal)
   }
+  const navigate = useNavigate()
   return (
     <>
       <div className={styles.nav}>
-        <h1>Best Donuts</h1>
+        <h1 onClick={() => navigate('/')}>Best Donuts</h1>
         <Button variant='contained' onClick={() => modaHandle()}>
           <Badge badgeContent={product.length - 1}>
             <ShoppingCartTwoToneIcon />
@@ -103,10 +105,11 @@ const NavBar = () => {
               variant='medium'
               className={styles.orderBtn}
               onClick={() => {
-                dispatch(deleteAll())
+                navigate('/checkout')
+                setCartModal(false)
               }}
             >
-              Order
+              Checkout
             </Button>
           )}
         </div>

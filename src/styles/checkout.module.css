@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  gap: 0.6em;
+}
+.items {
+  display: flex;
+  gap: 0.4em;
+  padding: 0.2em 1em;
+  margin-bottom: 0.5em;
+  background-image: linear-gradient(to right, #159957, #155799);
+  background-size: 0 4%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  transition: 250ms ease;
+}
+.items:hover {
+  background-size: 99% 4%;
+}
