@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, increaseAmount } from '../features/product'
-import { Typography, TextField } from '@mui/material'
+import { Typography, TextField, Paper } from '@mui/material'
 import styles from '../styles/products.module.css'
 
 const Products = () => {
@@ -38,7 +38,7 @@ const Products = () => {
           })
           .map((donut) => {
             return (
-              <div className={styles.donut} key={donut.id}>
+              <Paper elevation={6} className={styles.donut} key={donut.id}>
                 <img
                   src={donut.img}
                   height='200'
@@ -71,7 +71,7 @@ const Products = () => {
                 >
                   Add to Cart
                 </button>
-              </div>
+              </Paper>
             )
           })}
       </div>
