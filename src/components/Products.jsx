@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, increaseAmount } from '../features/product'
 import { Typography, TextField, Paper } from '@mui/material'
@@ -9,6 +10,11 @@ const Products = () => {
   const dispatch = useDispatch()
   const donuts = useSelector((state) => state.donuts.value)
   const products = useSelector((state) => state.product.value)
+  const navigate = useNavigate()
+
+  const donutHandler = (data) => {
+    navigate(`/${data.id}`)
+  }
 
   return (
     <>
@@ -40,6 +46,7 @@ const Products = () => {
             return (
               <Paper elevation={6} className={styles.donut} key={donut.id}>
                 <img
+                  onClick={() => donutHandler(donut)}
                   src={donut.img}
                   height='200'
                   width='200'

@@ -1,6 +1,7 @@
 import NavBar from './components/NavBar'
 import Products from './components/Products'
 import CheckOut from './components/CheckOut'
+import Donut from './components/Donut'
 import { useSelector } from 'react-redux'
 import {
   BrowserRouter as Router,
@@ -17,6 +18,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path='/' element={<Products />}></Route>
+          <Route path='/:donut' element={<Donut />} />
           <Route path='/:pageName' element={<Error />}></Route>
           {cart.length > 1 && (
             <Route path='/checkout' element={<CheckOut />}></Route>
